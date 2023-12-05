@@ -1,71 +1,35 @@
-// javascript code goes here
-const inputEl = document.querySelector("input");
-const btnArr = document.getElementsByClassName("todo-button"); //collection
-const addBtn = btnArr[0]; //not confirmed
-const ulEl = document.querySelector("ul");
+const bt = document.getElementsByClassName("todo-button")[0];
+const txt = document.getElementsByClassName("todo-input")[0];
+const parent = document.getElementsByClassName("todo-container")[0];
 
-//varying elements => needs to be updated with each li element added
-let spanElArr = document.getElementsByTagName("span");
-let completeBtnArr = document.getElementsByClassName("complete-btn");
-let trashBtnArr = document.getElementsByClassName("trash-btn");
+bt.addEventListener("click", (e) => {
+    e.preventDefault();
+    const dv = document.createElement("div");
+    const under = document.getElementsByClassName("todo-list")[0];
+    const l = document.createElement("li");
+    l.classList.add("todo-item");
+    l.innerText = txt.value;
 
-const completeBtnELFn = (newSpan, event) => {
-    event.stopPropagation();
-    newSpan.classList.toggle("strthru");
-}
-const trashBtnELFn = (li, event) => {
-    event.stopPropagation();
-    ulEl.removeChild(li);
-}
-addBtn.addEventListener("click", function(event) {
-    const newDiv = document.createElement("div");
-    ulEl.appendChild(newDiv);
+    const bt1 = document.createElement("button");
+    bt1.classList.add("complete-btn");
+    bt1.textContent = "Completed";
+    const bt2 = document.createElement("button");
+    bt2.classList.add("trash-btn");
+    bt2.textContent = "Delete";
 
-    const newLi = document.createElement("li")
-        // newLi.classList.add("todo-item");
-        // newLi.textContent = inputEl.value;
-    newLi.className = "todo-item";
-    newDiv.appendChild(newLi);
 
-    const newSpan = document.createElement("span");
-    newSpan.textContent = inputEl.value;
-    inputEl.value = "";
-    newSpan.className = "whatever";
-    newLi.appendChild(newSpan);
+    dv.appendChild(l);
+    dv.appendChild(bt1);
+    dv.appendChild(bt2);
+    under.appendChild(dv);
 
-    const newCompleteBtn = document.createElement("button");
-    newCompleteBtn.className = "complete-btn";
-    newCompleteBtn.textContent = "Completed";
-    newDiv.appendChild(newCompleteBtn);
-    newCompleteBtn.addEventListener("click", function(event) {
-        completeBtnELFn(newSpan, event);
-    })
 
-    const newDeleteBtn = document.createElement("button");
-    newDeleteBtn.className = "trash-btn";
-    newDeleteBtn.textContent = "Delete";
-    newDiv.appendChild(newDeleteBtn);
-    newDeleteBtn.addEventListener("click", function(event) {
-        trashBtnELFn(newDiv, event);
+    bt1.addEventListener("click", () => {
+        l.classList.toggle("completed");
     });
 
+    bt2.addEventListener("click", () => {
+        dv.remove();
+    });
 
-    // updatingValues();
-
-    event.preventDefault();
-    event.stopPropagation();
-})
-
-const buttonEL = () => {
-    for (let i = 0; i < completeBtnArr.length; i++) {
-        completeBtnArr[i].addEventListener("click", function() {
-            spanElArr[i].classList.toggle("strthru");
-        });
-        trashBtnArr[i].addEventListener("click", function() {
-
-        });
-
-    }
-}
-
-buttonEL();
+});

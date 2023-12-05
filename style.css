@@ -1,5 +1,10 @@
 /* css code goes here */
 
-.strthru {
+.completed {
     text-decoration: line-through solid rgb(0, 0, 0);
+}
+
+ul.todo-list {
+    list-style-type: circle;
+    color: black;
 }
